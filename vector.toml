@@ -1,0 +1,17 @@
+# Input from stdin
+[sources.pipe]
+type = "stdin"
+decoding.codec = "json"
+
+# Print parsed logs to stdout
+[sinks.print]
+type = "console"
+inputs = ["pipe"]
+encoding.codec = "json"
+
+# Vector's GraphQL API (disabled by default)
+# Uncomment to try it out with the `vector top` command or
+# in your browser at http://localhost:8686
+#[api]
+#enabled = true
+#address = "127.0.0.1:8686"
