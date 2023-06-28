@@ -13,3 +13,28 @@ if [ -z $KOYEB_TOKEN ]; then
     /run/s6/basedir/bin/halt
     exit 1
 fi
+
+for VAR in ${!SINK_JSON@}
+do
+    CONFIG=$(echo "${VAR}"| tr '[:upper:]' '[:lower:]').json
+    eval "echo -e \$$VAR" >> "/etc/vector/${CONFIG}"
+done
+
+for VAR in ${!SINK_YAML@}
+do
+    CONFIG=$(echo "${VAR}"| tr '[:upper:]' '[:lower:]').yaml
+    eval "echo -e \$$VAR" >> "/etc/vector/${CONFIG}"
+done
+
+for VAR in ${!SINK_TOML@}
+do
+    CONFIG=$(echo "${VAR}"| tr '[:upper:]' '[:lower:]').toml
+    eval "echo -e \$$VAR" >> "/etc/vector/${CONFIG}"
+done
+
+/usr/bin/vector --config-dir /etc/vector validate
+if [ $? -ne 0 ]
+then
+    /run/s6/basedir/bin/halt
+    exit $?
+fi

@@ -1,0 +1,4 @@
+# Input from stdin
+[sources.pipe]
+type = "stdin"
+decoding.codec = "json"

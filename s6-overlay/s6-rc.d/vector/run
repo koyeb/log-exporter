@@ -1,4 +1,4 @@
 #!/command/with-contenv /usr/bin/bash
 
 exec 2>&1
-exec /usr/bin/vector
+exec /usr/bin/vector --config-dir /etc/vector

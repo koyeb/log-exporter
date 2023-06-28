@@ -25,7 +25,7 @@ COPY --from=cli /koyeb /usr/bin/koyeb
 COPY --from=vector /usr/local/bin/vector /usr/bin/vector
 COPY --from=vector /etc/vector /etc/vector
 COPY --from=vector /var/lib/vector /var/lib/vector
-COPY vector.toml /etc/vector/vector.toml
+COPY koyeb-source.toml /etc/vector/koyeb-source.toml
 
 COPY ./s6-overlay /etc/s6-overlay/
 
