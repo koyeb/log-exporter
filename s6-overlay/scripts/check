@@ -1,0 +1,15 @@
+#!/command/with-contenv /usr/bin/bash
+
+set -eo pipefail
+
+if [ -z $KOYEB_SERVICE ]; then
+    echo "KOYEB_SERVICE must be set"
+    /run/s6/basedir/bin/halt
+    exit 1
+fi
+
+if [ -z $KOYEB_TOKEN ]; then
+    echo "KOYEB_TOKEN must be set"
+    /run/s6/basedir/bin/halt
+    exit 1
+fi
