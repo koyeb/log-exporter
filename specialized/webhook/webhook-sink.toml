@@ -1,0 +1,8 @@
+# https://vector.dev/docs/reference/configuration/sinks/http/
+[sinks.webhook]
+type = "http"
+inputs = ["pipe"]
+encoding.codec = "${ENCODING_CODEC:-json}"
+uri = "${WEBHOOK_URI}"
+auth.strategy = "bearer"
+auth.token = "${WEBHOOK_TOKEN:?WEBHOOK_TOKEN must be set}"

@@ -1,0 +1,8 @@
+# https://vector.dev/docs/reference/configuration/sinks/elasticsearch/
+[sinks.elastic]
+type = "elasticsearch"
+inputs = ["pipe"]
+auth.strategy = "basic"
+auth.user = "${ELASTICSEARCH_USER:?ELASTICSEARCH_USER must be set}"
+auth.password = "${ELASTICSEARCH_PASSWORD:?ELASTICSEARCH_PASSWORD must be set}"
+endpoints = ["${ELASTICSEARCH_ENDPOINT:?ELASTICSEARCH_ENDPOINT must be set}"]
