@@ -14,3 +14,10 @@ build-%:
 
 build: build-base build-splunk build-webhook build-elastic
 
+push-base:
+	$(DOCKER) push $(IMAGE):$(VERSION)
+
+push-%:
+	$(DOCKER) push $(IMAGE):$(VERSION)-$*
+
+push: push-base push-splunk push-webhook push-elastic
