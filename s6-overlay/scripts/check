@@ -32,7 +32,12 @@ do
     eval "echo -e \$$VAR" >> "/etc/vector/${CONFIG}"
 done
 
-/usr/bin/vector --config-dir /etc/vector validate
+if [ $DEBUG != "" ]
+then
+    mv /root/sink-console.toml /etc/vector/
+fi
+
+/usr/bin/vector --config-dir=/etc/vector validate
 if [ $? -ne 0 ]
 then
     /run/s6/basedir/bin/halt

@@ -1,0 +1,5 @@
+# Print parsed logs to stdout
+[sinks.print]
+type = "console"
+inputs = ["pipe"]
+encoding.codec = "json"
