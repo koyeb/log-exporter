@@ -32,6 +32,46 @@ do
     eval "echo -e \$$VAR" >> "/etc/vector/${CONFIG}"
 done
 
+for GIST in ${!GIST_FILE_@}
+do
+    TMP="/tmp/${GIST#GIST_FILE_}"
+    LOCAL=$(eval "echo \$$GIST"|cut -d : -f -1)
+    REMOTE=$(eval "echo \$$GIST"|cut -d : -f 2-)
+    gh gist clone "${REMOTE}" "${TMP}"
+    if [ $? -ne 0 ]
+    then
+        /run/s6/basedir/bin/halt
+        exit $?
+    fi
+    mv "${TMP}/*" "${LOCAL}"
+done
+
+for GIST in ${!GIST_DIR_@}
+do
+    TMP="/tmp/${GIST#GIST_DIR_}"
+    LOCAL=$(eval "echo \$$GIST"|cut -d : -f -1)
+    REMOTE=$(eval "echo \$$GIST"|cut -d : -f 2-)
+    gh gist clone "${REMOTE}" "${TMP}"
+    if [ $? -ne 0 ]
+    then
+        /run/s6/basedir/bin/halt
+        exit $?
+    fi
+    mv "${TMP}" "${LOCAL}"
+done
+
+for RFILE in ${!REMOTE_FILE_@}
+do
+    LOCAL=$(eval "echo \$$RFILE"|cut -d : -f -1)
+    REMOTE=$(eval "echo \$$RFILE"|cut -d : -f 2-)
+    curl --fail "${REMOTE}" --output "${TMP}"
+    if [ $? -ne 0 ]
+    then
+        /run/s6/basedir/bin/halt
+        exit $?
+    fi
+done
+
 if [ $DEBUG != "" ]
 then
     mv /root/sink-console.toml /etc/vector/

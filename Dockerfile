@@ -9,7 +9,12 @@ ARG S6_OVERLAY_VERSION=3.1.5.0
 ENV VECTOR_CONFIG_DIR=/etc/vector
 
 RUN apt update \
-    && apt install -y ca-certificates xz-utils \
+    && apt install -y \
+        ca-certificates \
+        xz-utils \
+        git \
+        gh \
+        curl \
  && rm -rf /var/lib/apt/lists/*
 
 # install s6 init
