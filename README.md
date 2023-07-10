@@ -46,6 +46,12 @@ An easy way to achieve the inline format above is using sed
 $ cat <config-file> | sed -z 's/\n/\\n/g'
 ```
 
+On MacOS, try using `tr`
+
+```
+$ cat <config-file> | tr '\n' '\\n'
+```
+
 [v]: https://vector.dev/
 [a]: https://www.koyeb.com/docs/quickstart/koyeb-cli#login
 [src]: https://vector.dev/docs/reference/configuration/sources/
