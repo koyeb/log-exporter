@@ -14,21 +14,21 @@ if [ -z $KOYEB_TOKEN ]; then
     exit 1
 fi
 
-for VAR in ${!SINK_JSON@}
+for VAR in ${!SINK_JSON_@}
 do
-    CONFIG=$(echo "${VAR}"| tr '[:upper:]' '[:lower:]').json
+    CONFIG=$(echo "${VAR#SINK_JSON_}"| tr '[:upper:]' '[:lower:]').json
     eval "echo -e \$$VAR" >> "/etc/vector/${CONFIG}"
 done
 
-for VAR in ${!SINK_YAML@}
+for VAR in ${!SINK_YAML_@}
 do
-    CONFIG=$(echo "${VAR}"| tr '[:upper:]' '[:lower:]').yaml
+    CONFIG=$(echo "${VAR#SINK_YAML_}"| tr '[:upper:]' '[:lower:]').yaml
     eval "echo -e \$$VAR" >> "/etc/vector/${CONFIG}"
 done
 
-for VAR in ${!SINK_TOML@}
+for VAR in ${!SINK_TOML_@}
 do
-    CONFIG=$(echo "${VAR}"| tr '[:upper:]' '[:lower:]').toml
+    CONFIG=$(echo "${VAR#SINK_TOML_}"| tr '[:upper:]' '[:lower:]').toml
     eval "echo -e \$$VAR" >> "/etc/vector/${CONFIG}"
 done
 
