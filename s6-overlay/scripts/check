@@ -72,7 +72,7 @@ do
     fi
 done
 
-if [ $DEBUG != "" ]
+if [ "${DEBUG}" != "" ]
 then
     mv /root/sink-console.toml /etc/vector/
 fi
