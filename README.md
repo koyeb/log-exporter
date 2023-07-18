@@ -65,55 +65,20 @@ You can retrieve a gist specifying it in the following format
 /a/local/path:<gist_id_or_url>
 ```
 
-If specified in a variable whose name follows the pattern `GITS_FILE_*` the gist will be
-pulled and it is expected to contain a single file, that will be renamed to
-`/a/local/path`. If the path exists and is a directory, the name of the file in the gist
-will be preserved and it will be moved into said directory.
+One can specify the id of a (possibly secret) gist in a variable that match the `GITS_*`
+pattern. All the files in the gist will be pulled and used as configuration for vector.
+**Note:** to retrieve a secret gist, one must specify the [variables][ghe] needed for
+authentication (the [token][ght] must be a classic one, with the `gist` permission).
 
-> **example**: If the gist contains just a `my.conf` file (assuming the gist id to be
-> `1234567890abcdef`):
-> ```
-> GIST_FILE_MY_CONF=/etc/nginx/conf.d:1234567890abcdef
-> ```
-> will put `my.conf` in `/etc/nginx/conf.d` (we assume the directory to exist), while
-> ```
-> GIST_FILE_MY_CONF=/etc/nginx/conf.d/name.conf:1234567890abcdef
-> ```
-> will put it in `/etc/nginx/conf.d/name.conf`
-
-
-If specified in a variable whose name follows the pattern `GIST_DIR_*`, all the files in
-the gist will be put in `/a/local/path`. If the path exists and is a directory, all the
-files in the gist will be moved there in a subdirectory named as the part of the
-environment variable that the asterisk expands into. Otherwise, the directory will be created
-and all the files will be put there.
-
-> **example**: If the gist contains two files `one.conf` and `two.conf`
-> ```
-> GIST_DIR_MY_CONF=/etc/nginx/conf.d:1234567890abcdef
-> ```
-> will put all the files in `/etc/nginx/conf.d/my_conf`.
-> ```
-> GIST_DIR_MY_CONF=/etc/missing:1234567890abcdef
-> ```
-> will create `/etc/missing` and place there both the files.
-
-> **NOTE**: On the authentication to github to use secret gists, you can set the `GH_TOKEN` variable.
-> See [here][ghe] for more details.
-
-Lastly, one can specify a path to a (publicly available) http file and place it in the
-chosen path, specifying the `REMOTE_FILE_*` variable. Note that, in this case, one must
-specify the whole path of the destination file.
-
-> **example**: If the remote file is at `https://my.company.tld/config/remote.txt`
-> ```
-> REMOTE_FILE_MY_CONF=/etc/my.conf:https://my.company.tld/config/remote.txt
-> ```
-> will place the content located at the given URL in `/etc/my.conf`
-
+Lastly, one can specify a path to a remote HTTP file in a variable matching the
+`REMOTE_FILE_*` pattern and it will be retrieved and used as vector config.  **Note:**
+the URL must contain the name of the destination file, such that it includes one of the
+extensions supported by vector as configuration formats (and of course be in that
+format).
 
 [v]: https://vector.dev/
 [a]: https://www.koyeb.com/docs/quickstart/koyeb-cli#login
 [src]: https://vector.dev/docs/reference/configuration/sources/
 [dst]: https://vector.dev/docs/reference/configuration/sinks/
 [ghe]: https://cli.github.com/manual/gh_help_environment
+[ght]: https://github.com/settings/tokens
