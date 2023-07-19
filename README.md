@@ -11,6 +11,9 @@ There are 2 mandatory environment variables to be set:
   - `KOYEB_TOKEN` set with an authentication token, generated as per
     [documentation][a]
 
+Optionally, adding a `DEBUG` environment variable set to any value (`1`, for example),
+would enable the log-exporter to dump any log line received to stdout.
+
 ### The sinks
 
 This image ships with a preconfigured [source][src] for vector, called `pipe`.
@@ -59,22 +62,21 @@ $ cat <config-file> | tr '\n' '\\n'
 If you prefer, you can also provide one or more configuration files from remote sources.
 The remote sources supported are `gist.github.com` and any remote `HTTP` served file.
 
-You can retrieve a gist specifying it in the following format
+You can retrieve a gist specifying its id (the last part of the url), in a variable that
+matches the `GIST_*` pattern. All the files in the gist will be pulled and used as
+configuration for vector. You can specify more than one gist in differently named
+variables.
 
-```
-/a/local/path:<gist_id_or_url>
-```
-
-One can specify the id of a (possibly secret) gist in a variable that match the `GITS_*`
-pattern. All the files in the gist will be pulled and used as configuration for vector.
-**Note:** to retrieve a secret gist, one must specify the [variables][ghe] needed for
-authentication (the [token][ght] must be a classic one, with the `gist` permission).
+**Note:** to retrieve the content of a secret gist, one must specify the [variable][ghe]
+(`GH_TOKEN`) needed for authentication (the [token][ght] must be a classic one, with the
+`gist` permission).
 
 Lastly, one can specify a path to a remote HTTP file in a variable matching the
-`REMOTE_FILE_*` pattern and it will be retrieved and used as vector config.  **Note:**
-the URL must contain the name of the destination file, such that it includes one of the
-extensions supported by vector as configuration formats (and of course be in that
-format).
+`REMOTE_FILE_*` pattern and it will be retrieved and used as vector config.
+
+**Note:** the URL must contain the name of the destination file, such that it includes
+one of the extensions supported by vector as configuration formats (and of course be in
+that format).
 
 [v]: https://vector.dev/
 [a]: https://www.koyeb.com/docs/quickstart/koyeb-cli#login
