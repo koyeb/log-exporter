@@ -5,6 +5,8 @@ destination, leveraging the power of [vector][v].
 
 ## Configuration
 
+When deploying the log exporter, you must use the [worker Service type](https://www.koyeb.com/docs/reference/services#service-types).
+
 There are 2 mandatory environment variables to be set:
   - `KOYEB_SERVICE` must specify the name of the service whose logs are of
     interest
