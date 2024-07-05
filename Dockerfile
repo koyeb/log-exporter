@@ -4,7 +4,7 @@ FROM timberio/vector:latest-distroless-static AS vector
 
 FROM debian:bookworm
 
-ARG S6_OVERLAY_VERSION=3.1.5.0
+ARG S6_OVERLAY_VERSION=3.2.0.0
 
 ENV VECTOR_CONFIG_DIR=/etc/vector
 
@@ -32,7 +32,7 @@ COPY --from=vector /etc/vector /etc/vector
 COPY --from=vector /var/lib/vector /var/lib/vector
 COPY koyeb-source.toml /etc/vector/koyeb-source.toml
 COPY sink-console.toml /root
-RUN rm /etc/vector/vector.toml
+RUN rm /etc/vector/vector.*
 
 COPY ./s6-overlay /etc/s6-overlay/
 
