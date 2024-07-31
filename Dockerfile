@@ -1,10 +1,16 @@
-FROM koyeb/koyeb-cli:latest AS cli
+ARG KOYEB_CLI_VERSION
+
+FROM koyeb/koyeb-cli:$KOYEB_CLI_VERSION AS cli
+
+LABEL com.koyeb.cli-version=${KOYEB_CLI_VERSION}
 
 FROM timberio/vector:latest-distroless-static AS vector
 
 FROM debian:bookworm
 
 ARG S6_OVERLAY_VERSION=3.2.0.0
+
+LABEL com.koyeb.s6-version=${S6_OVERLAY_VERSION}}
 
 ENV VECTOR_CONFIG_DIR=/etc/vector
 
