@@ -6,4 +6,6 @@ exec 2>&1
 exec /usr/bin/koyeb \
     --token "${KOYEB_TOKEN}" \
     --url "${KOYEB_URL:-https://app.koyeb.com}" \
-    services logs ${KOYEB_SERVICE}
+    services logs \
+    --since "$(date --date="-1 minutes" --rfc-3339=seconds)" \
+    ${KOYEB_SERVICE}
