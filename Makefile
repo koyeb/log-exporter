@@ -6,6 +6,7 @@ KOYEB_CLI_VERSION ?= v5.3.1
 
 build-common:
 	$(DOCKER) build \
+		--platform linux/amd64 \
 		--pull \
 		--build-arg KOYEB_CLI_VERSION=$(KOYEB_CLI_VERSION) \
 		-t $(LOCAL_IMAGE) .
@@ -15,6 +16,7 @@ build-base: build-common
 
 build-%:
 	$(DOCKER) build \
+		--platform linux/amd64 \
 		--build-arg BASE_IMG=$(LOCAL_IMAGE) \
 		-t $(IMAGE):$(VERSION)-$* ./specialized/$*
 
