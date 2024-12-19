@@ -2,7 +2,7 @@ IMAGE ?= koyeb/log-exporter
 VERSION ?= $(shell git rev-parse --short HEAD)
 DOCKER ?= docker
 LOCAL_IMAGE := log-exporter
-KOYEB_CLI_VERSION ?= v4.3.0
+KOYEB_CLI_VERSION ?= v5.3.1
 
 build-common:
 	$(DOCKER) build \
