@@ -1,8 +1,5 @@
 #!/command/with-contenv /usr/bin/bash
 
-set -eo pipefail
-
-exec 2>&1
 exec /usr/bin/koyeb \
     --token "${KOYEB_TOKEN}" \
     --url "${KOYEB_URL:-https://app.koyeb.com}" \
