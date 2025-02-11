@@ -1,7 +1,17 @@
 # https://vector.dev/docs/reference/configuration/sinks/splunk_hec_logs/
+[transforms.parse_json]
+type = "remap"
+inputs = ["pipe"]
+source = """
+  message = parse_json!(.message)
+  .timestamp = message.date
+  .source_type = message.stream
+  .labels = message.labels
+  .message = message.msg
+"""
 [sinks.splunk]
 type = "splunk_hec_logs"
-inputs = ["pipe"]
+inputs = ["parse_json"]
 encoding.codec = "${ENCODING_CODEC:-json}"
 default_token = "${SPLUNK_TOKEN:?SPLUNK_TOKEN must be set}"
 endpoint = "${SPLUNK_ENDPOINT:?SPLUNK_ENDPOINT uri must be set}"

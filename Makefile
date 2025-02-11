@@ -2,10 +2,11 @@ IMAGE ?= koyeb/log-exporter
 VERSION ?= $(shell git rev-parse --short HEAD)
 DOCKER ?= docker
 LOCAL_IMAGE := log-exporter
-KOYEB_CLI_VERSION ?= v4.3.0
+KOYEB_CLI_VERSION ?= v5.3.2
 
 build-common:
 	$(DOCKER) build \
+		--platform linux/amd64 \
 		--pull \
 		--build-arg KOYEB_CLI_VERSION=$(KOYEB_CLI_VERSION) \
 		-t $(LOCAL_IMAGE) .
@@ -15,6 +16,7 @@ build-base: build-common
 
 build-%:
 	$(DOCKER) build \
+		--platform linux/amd64 \
 		--build-arg BASE_IMG=$(LOCAL_IMAGE) \
 		-t $(IMAGE):$(VERSION)-$* ./specialized/$*
 

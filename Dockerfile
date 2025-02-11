@@ -1,6 +1,8 @@
-ARG KOYEB_CLI_VERSION
+ARG KOYEB_CLI_VERSION=latest
 
-FROM koyeb/koyeb-cli:$KOYEB_CLI_VERSION AS cli
+FROM koyeb/koyeb-cli:${KOYEB_CLI_VERSION} AS cli
+
+ARG KOYEB_CLI_VERSION=latest
 
 LABEL com.koyeb.cli-version=${KOYEB_CLI_VERSION}
 

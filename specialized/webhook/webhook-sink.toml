@@ -1,7 +1,17 @@
 # https://vector.dev/docs/reference/configuration/sinks/http/
+[transforms.parse_json]
+type = "remap"
+inputs = ["pipe"]
+source = """
+  message = parse_json!(.message)
+  .timestamp = message.date
+  .source_type = message.stream
+  .labels = message.labels
+  .message = message.msg
+"""
 [sinks.webhook]
 type = "http"
-inputs = ["pipe"]
+inputs = ["parse_json"]
 encoding.codec = "${ENCODING_CODEC:-json}"
 uri = "${WEBHOOK_URI}"
 auth.strategy = "bearer"
