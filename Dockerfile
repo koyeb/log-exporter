@@ -8,7 +8,7 @@ LABEL com.koyeb.cli-version=${KOYEB_CLI_VERSION}
 
 FROM timberio/vector:latest-distroless-static AS vector
 
-FROM debian:bookworm
+FROM debian:trixie
 
 ARG S6_OVERLAY_VERSION=3.2.1.0
 
